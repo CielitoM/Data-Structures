@@ -69,3 +69,146 @@ existe un nodo al que se denomina raíz del árbol y cada nodo puede tener 0, 1 
 ### Basadas en nodos y punteros
 
 ### Basadas en arreglos (implica árbol binario completo)
+
+
+
+## Árboles Binarios de Búsqueda (ABB)
+
+Un **Árbol Binario de Búsqueda** (ABB) es una estructura de datos que permite realizar búsquedas de manera eficiente. 
+
+### Estructura de un ABB
+
+Un ABB es un tipo especial de árbol binario que está estructurado de forma que facilita las búsquedas eficientes. La estructura básica incluye nodos, donde cada nodo es un objeto que contiene:
+
+- **Clave**: Un valor que se usa para organizar el árbol.
+- **Datos satélite**: Información adicional que puede almacenar cada nodo.
+- **Atributos de enlace**:
+  - `izquierda`: Apunta al hijo izquierdo.
+  - `derecha`: Apunta al hijo derecho.
+  - `p`: Apunta al nodo padre.
+
+### Propiedad Fundamental de los ABBs
+
+La propiedad fundamental que define un Árbol Binario de Búsqueda es la relación entre las claves de los nodos y sus subárboles. Esta propiedad asegura que el árbol está organizado de manera que permite realizar búsquedas de manera eficiente. La propiedad se puede enunciar así:
+
+- Sea \( x \) un nodo en un ABB:
+  - **Subárbol Izquierdo**: Si \( y \) es un nodo del subárbol izquierdo de \( x \), entonces la clave de \( y \) (\( y.clave \)) es menor o igual que la clave de \( x \) (\( x.clave \)).
+  - **Subárbol Derecho**: Si \( y \) es un nodo del subárbol derecho de \( x \), entonces la clave de \( y \) (\( y.clave \)) es mayor o igual que la clave de \( x \) (\( x.clave \)).
+
+### Ejemplo
+
+Considera el siguiente Árbol Binario de Búsqueda:
+
+10
+
+├── 5
+
+│   ├── 3
+
+│   └── 7
+
+├── 20
+
+│   ├── 15
+
+│   └──  25
+
+
+En este árbol:
+
+- El nodo con la clave `10` tiene:
+  - Un subárbol izquierdo con claves `5`, `3`, y `7` (todas ≤ 10).
+  - Un subárbol derecho con claves `20`, `15`, y `25` (todas ≥ 10).
+- El nodo con la clave `5` tiene:
+  - Un subárbol izquierdo con la clave `3` (≤ 5).
+  - Un subárbol derecho con la clave `7` (≥ 5).
+- Y así sucesivamente para cada nodo en el árbol.
+
+### Representación en Memoria
+
+En memoria, los nodos de un ABB se pueden representar usando listas enlazadas. Cada nodo tiene enlaces (`p` para el padre, `izquierda` para el hijo izquierdo y `derecha` para el hijo derecho) que permiten navegar por el árbol.
+
+Esta estructura permite realizar operaciones de búsqueda, inserción y eliminación de manera eficiente. Al seguir la propiedad fundamental de los ABBs, las operaciones de búsqueda pueden aprovechar la organización del árbol para reducir significativamente el número de comparaciones necesarias en promedio.
+
+
+
+
+### Recorridos
+#### Recorrido Inorden
+
+El **recorrido inorden** es una forma de recorrer un árbol binario en la que las claves se procesan en orden ascendente. Este recorrido es especialmente útil en los Árboles Binarios de Búsqueda (ABB) porque garantiza que las claves se procesan en su secuencia natural.
+
+###### Algoritmo del Recorrido Inorden
+
+El recorrido inorden se realiza mediante un algoritmo recursivo simple. La idea básica es procesar las claves de la siguiente manera:
+
+1. Procesar (recorrer) el subárbol izquierdo.
+2. Procesar (visitar) el nodo actual.
+3. Procesar (recorrer) el subárbol derecho.
+
+###### Pseudocódigo
+
+A continuación, se muestra el pseudocódigo para el recorrido inorden de un árbol binario:
+
+RECORRIDO_INORDEN(X)
+
+si x != NULO
+RECORRIDO_INORDEN(x.izq)
+imprimir x.clave
+RECORRIDO_INORDEN(x.der)
+
+
+
+###### Explicación Paso a Paso
+
+1. **Verificar si el nodo es NULO:**
+   - Si el nodo actual (`x`) es `NULO`, no se hace nada y se retorna.
+   - Esta es la condición base de la recursión que asegura que el algoritmo se detenga cuando llega a un nodo hoja.
+
+2. **Procesar el subárbol izquierdo:**
+   - Llamar recursivamente a `RECORRIDO_INORDEN` con el hijo izquierdo de `x`.
+   - Esto asegura que todos los nodos en el subárbol izquierdo se procesen antes que el nodo actual.
+
+3. **Visitar el nodo actual:**
+   - Imprimir la clave del nodo actual (`x.clave`).
+   - En este punto, se está "visitando" el nodo actual después de haber procesado todos los nodos de su subárbol izquierdo.
+
+4. **Procesar el subárbol derecho:**
+   - Llamar recursivamente a `RECORRIDO_INORDEN` con el hijo derecho de `x`.
+   - Esto asegura que todos los nodos en el subárbol derecho se procesen después que el nodo actual.
+
+### Ejemplo
+
+Considera el siguiente Árbol Binario de Búsqueda:
+
+10
+
+├── 5
+
+│   ├── 3
+
+│   └── 7
+
+├── 20
+
+│   ├── 15
+
+│   └──  25
+
+
+El recorrido inorden de este árbol sería:
+
+1. Procesar el subárbol izquierdo de `10` (claves `5`, `3`, `7`):
+   - Procesar el subárbol izquierdo de `5` (clave `3`): imprimir `3`
+   - Visitar `5`: imprimir `5`
+   - Procesar el subárbol derecho de `5` (clave `7`): imprimir `7`
+2. Visitar `10`: imprimir `10`
+3. Procesar el subárbol derecho de `10` (claves `20`, `15`, `25`):
+   - Procesar el subárbol izquierdo de `20` (clave `15`): imprimir `15`
+   - Visitar `20`: imprimir `20`
+   - Procesar el subárbol derecho de `20` (clave `25`): imprimir `25`
+
+El resultado del recorrido inorden será: `3, 5, 7, 10, 15, 20, 25`.
+
+
+El recorrido inorden es una técnica recursiva para procesar las claves de un árbol binario en orden ascendente. Procesa primero el subárbol izquierdo, luego el nodo actual y finalmente el subárbol derecho. Este método es especialmente útil en Árboles Binarios de Búsqueda, donde garantiza que las claves se procesen en orden creciente.
