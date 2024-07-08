@@ -41,6 +41,8 @@ Esto significa que cada conjunto Ai sigue las mismas reglas de definición de un
 Mantenemos los hijos de cada nodo en una lista enlazada. Cada nodo tiene dos
 referencias: uno a su hijo más a la izquierda y otra a su hermano de la derecha.
 
+![image](https://github.com/CielitoM/Data-Structures/assets/159088152/d9716b2d-42ce-42e9-8dd7-89b7901eda6b)
+
 ![Captura de pantalla 2024-07-06 193012](https://github.com/CielitoM/Data-Structures/assets/159088152/b79affa1-07a2-49e0-b68a-a0a678694c2d)
 
 
@@ -68,7 +70,13 @@ existe un nodo al que se denomina raíz del árbol y cada nodo puede tener 0, 1 
 ## Ejemplo de implementación
 ### Basadas en nodos y punteros
 
+![image](https://github.com/CielitoM/Data-Structures/assets/159088152/0a8e8c64-fc99-4cb4-8f5a-20b35e1fdd49)
+
 ### Basadas en arreglos (implica árbol binario completo)
+
+![image](https://github.com/CielitoM/Data-Structures/assets/159088152/2b803de3-52cf-41db-8c1a-e3e4a8c3b226)
+
+![image](https://github.com/CielitoM/Data-Structures/assets/159088152/824aefc4-81e2-4e89-97a9-ee8ce2031e7c)
 
 
 
@@ -99,19 +107,7 @@ La propiedad fundamental que define un Árbol Binario de Búsqueda es la relaci�
 
 Considera el siguiente Árbol Binario de Búsqueda:
 
-10
-
-├── 5
-
-│   ├── 3
-
-│   └── 7
-
-├── 20
-
-│   ├── 15
-
-│   └──  25
+![image](https://github.com/CielitoM/Data-Structures/assets/159088152/b61b4d08-1fa4-4958-9c1a-9d6440bf05a4)
 
 
 En este árbol:
@@ -181,19 +177,8 @@ RECORRIDO_INORDEN(x.der)
 
 Considera el siguiente Árbol Binario de Búsqueda:
 
-10
+![image](https://github.com/CielitoM/Data-Structures/assets/159088152/3b88dca5-24ce-4bec-a9c0-c09f03435d10)
 
-├── 5
-
-│   ├── 3
-
-│   └── 7
-
-├── 20
-
-│   ├── 15
-
-│   └──  25
 
 
 El recorrido inorden de este árbol sería:
@@ -212,3 +197,279 @@ El resultado del recorrido inorden será: `3, 5, 7, 10, 15, 20, 25`.
 
 
 El recorrido inorden es una técnica recursiva para procesar las claves de un árbol binario en orden ascendente. Procesa primero el subárbol izquierdo, luego el nodo actual y finalmente el subárbol derecho. Este método es especialmente útil en Árboles Binarios de Búsqueda, donde garantiza que las claves se procesen en orden creciente.
+
+
+
+### Coste de recorrido inorden de BST
+Si x es la raíz de un subárbol de n nodos, entonces la llamada
+RECORRIDO-INORDEN(X) tiene un coste de O(n)
+
+El número de subárboles vacíos en un árbol binario T=nro.nodos+1.
+
+
+### Operaciones sobre BSTs
+####Búsqueda. 
+La operación de **búsqueda** en un ABB tiene como objetivo encontrar un nodo con una clave específica \( k \). Dado un puntero a la raíz del árbol, la operación de búsqueda retornará un puntero al nodo que contiene la clave \( k \) si este nodo existe. Si el nodo con la clave \( k \) no se encuentra en el árbol, la operación retornará `NULO`.
+
+##### Pseudocódigo de la Búsqueda
+
+El algoritmo de búsqueda en un ABB se puede expresar mediante el siguiente pseudocódigo:
+
+BUSQUEDA(x, k)
+
+1. si x == NULO o k == x.clave
+2. return x
+3. si k < x.clave
+4. return BUSQUEDA(x.izq, k)
+5. sino
+6. return BUSQUEDA(x.der, k)
+
+
+
+
+**Caso Base (Línea 1):**
+   - Si el nodo actual `x` es `NULO`, esto significa que hemos llegado al final de un camino sin encontrar la clave \( k \). En este caso, retornamos `NULO`.
+   - Si la clave del nodo actual `x` es igual a \( k \), hemos encontrado el nodo que estamos buscando. En este caso, retornamos el puntero al nodo actual `x`.
+
+**Comparación (Línea 3):**
+   - Si \( k \) es menor que la clave del nodo actual \( x \), esto significa que si el nodo con clave \( k \) existe, debe estar en el subárbol izquierdo. Por lo tanto, llamamos recursivamente a `BUSQUEDA` en el hijo izquierdo de \( x \) (es decir, `x.izq`).
+
+**Caso Contrario (Línea 5):**
+   - Si \( k \) no es menor que la clave del nodo actual \( x \), entonces debe ser mayor. Esto significa que si el nodo con clave \( k \) existe, debe estar en el subárbol derecho. Por lo tanto, llamamos recursivamente a `BUSQUEDA` en el hijo derecho de \( x \) (es decir, `x.der`).
+
+### Ejemplo
+
+Considera el siguiente Árbol Binario de Búsqueda:
+
+
+![image](https://github.com/CielitoM/Data-Structures/assets/159088152/60b39572-b3e6-46fb-823f-29ca63c03ac6)
+
+
+Supongamos que queremos buscar la clave `7`:
+
+1. Comenzamos en la raíz: `x = 10`.
+   - \( 7 < 10 \), así que llamamos a `BUSQUEDA(5, 7)`.
+
+2. Ahora estamos en el nodo `5`.
+   - \( 7 > 5 \), así que llamamos a `BUSQUEDA(7, 7)`.
+
+3. Ahora estamos en el nodo `7`.
+   - \( 7 == 7 \), hemos encontrado el nodo y retornamos el puntero a este nodo.
+
+Si quisiéramos buscar una clave que no existe, como `8`, el algoritmo seguiría el mismo proceso, pero eventualmente llegaría a un nodo `NULO`, indicando que la clave no está presente en el árbol.
+
+
+
+#### Mínimo. 
+Para encontrar el nodo con la clave mínima en un ABB, seguimos los punteros del hijo izquierdo desde la raíz hasta que encontramos un nodo que no tiene hijo izquierdo (es decir, cuyo puntero izquierdo es `NULO`). Este nodo es el que contiene la clave mínima.
+
+##### Pseudocódigo de la Búsqueda del Mínimo
+El algoritmo para encontrar el mínimo en un ABB se puede expresar mediante el siguiente pseudocódigo:
+
+MINIMO(x)
+1. mientras x.izq != NULO
+2. x = x.izq
+3. return x
+
+
+1. **Inicialización:**
+   - Comenzamos en el nodo `x` (que usualmente es la raíz del árbol).
+
+2. **Desplazamiento a la Izquierda (Línea 1):**
+   - Mientras el nodo actual `x` tenga un hijo izquierdo (es decir, `x.izq` no sea `NULO`), continuamos moviéndonos al hijo izquierdo (`x = x.izq`).
+
+3. **Retorno del Mínimo (Línea 3):**
+   - Una vez que hemos encontrado un nodo que no tiene hijo izquierdo (cuando `x.izq` es `NULO`), este nodo es el que contiene la clave mínima. Retornamos este nodo `x`.
+
+### Ejemplo
+
+Considera el siguiente Árbol Binario de Búsqueda:
+
+
+
+![image](https://github.com/CielitoM/Data-Structures/assets/159088152/a0389753-cddf-44ad-889d-b7467e364e25)
+
+
+
+
+Supongamos que queremos encontrar la clave mínima:
+
+1. Comenzamos en la raíz: `x = 10`.
+   - `x.izq` es `5`, así que nos movemos al nodo `5`.
+
+2. Ahora estamos en el nodo `5`.
+   - `x.izq` es `3`, así que nos movemos al nodo `3`.
+
+3. Ahora estamos en el nodo `3`.
+   - `x.izq` es `NULO`, por lo que hemos encontrado el nodo con la clave mínima.
+
+El nodo `3` es el nodo con la clave mínima en este árbol.
+
+
+### Máximo. 
+Para encontrar el nodo con la clave máxima en un ABB, seguimos los punteros del hijo derecho desde la raíz hasta que encontramos un nodo que no tiene hijo derecho (es decir, cuyo puntero derecho es `NULO`). Este nodo es el que contiene la clave máxima.
+
+#### Pseudocódigo de la Búsqueda del Máximo
+
+El algoritmo para encontrar el máximo en un ABB se puede expresar mediante el siguiente pseudocódigo:
+
+MAXIMO(x)
+
+1. mientras x.der != NULO
+2. x = x.der
+3. return x
+
+#### Explicación paso a paso:
+1. **Inicialización:**
+   - Comenzamos en el nodo `x` (que usualmente es la raíz del árbol).
+
+2. **Desplazamiento a la Derecha (Línea 1):**
+   - Mientras el nodo actual `x` tenga un hijo derecho (es decir, `x.der` no sea `NULO`), continuamos moviéndonos al hijo derecho (`x = x.der`).
+
+3. **Retorno del Máximo (Línea 3):**
+   - Una vez que hemos encontrado un nodo que no tiene hijo derecho (cuando `x.der` es `NULO`), este nodo es el que contiene la clave máxima. Retornamos este nodo `x`.
+
+## Ejemplo
+
+Considera el siguiente Árbol Binario de Búsqueda:
+
+
+![image](https://github.com/CielitoM/Data-Structures/assets/159088152/558ced4b-c95e-46b4-82db-dfa411de006a)
+
+
+
+
+Supongamos que queremos encontrar la clave máxima:
+
+1. Comenzamos en la raíz: `x = 10`.
+   - `x.der` es `20`, así que nos movemos al nodo `20`.
+
+2. Ahora estamos en el nodo `20`.
+   - `x.der` es `25`, así que nos movemos al nodo `25`.
+
+3. Ahora estamos en el nodo `25`.
+   - `x.der` es `NULO`, por lo que hemos encontrado el nodo con la clave máxima.
+
+El nodo `25` es el nodo con la clave máxima en este árbol.
+
+
+#### Coste de mínimo y máximo:
+Máximo y mínimo tienen coste O(h) para un árbol de altura h, debido a que la
+secuencia de nodos forma un camino simple hacia abajo desde la raíz.
+
+
+### Sucesor:
+El sucesor de un nodo `x` en un ABB es el nodo con la menor clave que es mayor que `x.clave`. Si `x` tiene un hijo derecho, el sucesor será el nodo con la clave mínima en el subárbol derecho de `x`. Si `x` no tiene hijo derecho, el sucesor será el primer ancestro de `x` cuyo hijo izquierdo también es ancestro de `x`.
+
+#### Pseudocódigo de la Búsqueda del Sucesor
+
+El algoritmo para encontrar el sucesor en un ABB se puede expresar mediante el siguiente pseudocódigo:
+
+
+SUCESOR(x)
+
+1. si x.der != NULO
+2. return MINIMO(x.der)
+3. y = x.p
+4. mientras y != NULO and x == y.der
+5. x = y
+6. y = y.p
+7. return y
+8. 
+##### Explicación Paso a Paso
+
+1. **Caso 1: Subárbol Derecho Existe (Línea 1):**
+   - Si `x` tiene un hijo derecho (`x.der != NULO`), el sucesor de `x` es el nodo con la clave mínima en el subárbol derecho de `x`. Utilizamos la función `MINIMO` para encontrar este nodo.
+
+2. **Caso 2: Sin Subárbol Derecho (Línea 3):**
+   - Si `x` no tiene un hijo derecho, necesitamos encontrar el primer ancestro `y` de `x` tal que `x` es un descendiente del hijo izquierdo de `y`.
+
+3. **Subimos en el Árbol (Línea 4):**
+   - Inicializamos `y` como el padre de `x` (`y = x.p`).
+   - Mientras `y` no sea `NULO` y `x` sea el hijo derecho de `y` (`x == y.der`), continuamos subiendo en el árbol:
+     - `x` toma el valor de `y`.
+     - `y` toma el valor del padre de `y`.
+
+4. **Retorno del Sucesor (Línea 7):**
+   - Una vez que encontramos el nodo `y` que satisface las condiciones, este nodo es el sucesor de `x`. Si no encontramos tal nodo, retornamos `NULO`, lo que indica que `x` tiene la clave mayor en el árbol.
+
+## Ejemplo
+
+Considera el siguiente Árbol Binario de Búsqueda:
+
+![image](https://github.com/CielitoM/Data-Structures/assets/159088152/8da3dfd4-3137-4a40-b668-6f2ab4809dbb)
+
+
+
+Supongamos que queremos encontrar el sucesor del nodo con clave `7`:
+
+1. **Nodo con clave `7` no tiene hijo derecho:**
+   - Procedemos al paso 3.
+
+2. **Inicialización:**
+   - `y` es el padre de `7`, que es `6`.
+   - `x` es `7`.
+
+3. **Subimos en el Árbol:**
+   - `x` no es el hijo derecho de `y` (`x != y.der`), así que salimos del bucle.
+
+4. **Retorno del Sucesor:**
+   - Retornamos `y`, que es `13`, el sucesor de `7`.
+
+#### Teorema. 
+Podemos implementar las operaciones
+BUSQUEDA,MINIMO,MAXIMO,SUCESOR, PREDECESOR, de tal manera que cada uno
+tenga como coste O(h) en un BST de altura h.
+
+Inserción. 
+La operación de inserción en un BST implica colocar un nuevo nodo `z` en su posición correcta dentro del árbol de manera que se mantenga la propiedad del BST. La propiedad del BST establece que, para cada nodo `n`, todos los nodos en el subárbol izquierdo de `n` tienen claves menores que la clave de `n`, y todos los nodos en el subárbol derecho de `n` tienen claves mayores que la clave de `n`.
+
+#### Pseudocódigo de la Inserción
+
+El pseudocódigo para la inserción de un nuevo nodo `z` en un BST `T` es el siguiente:
+
+INSERTAR(T, z)
+1. y = NULO
+
+2. X = T.root
+3. mientras x =! NULO
+4. y = x
+5. si z.clave ﹤ x.clave
+6. x = x.left
+7. sino x = x.der
+8. z.p = y
+9. si y == NULO
+10. t.root = z
+11.sino si z.clave ﹤ y.clave
+12. y.izq = z
+13.sino y.der = z
+
+#### Explicación Paso a Paso
+
+1. **Inicialización (Línea 1):**
+   - `y` se inicializa como `NULO`. Este puntero `y` se utilizará para mantener el rastro del nodo padre de `x`.
+
+2. **Comenzar desde la Raíz (Línea 2):**
+   - `x` se inicializa como la raíz del árbol `T`.
+
+3. **Búsqueda de la Posición Correcta (Líneas 3-8):**
+   - Mientras `x` no sea `NULO`, el bucle se ejecuta para encontrar la posición correcta para insertar `z`.
+   - En cada iteración, `y` se actualiza para que apunte al nodo actual `x`.
+   - Si la clave de `z` es menor que la clave de `x`, `x` se mueve al hijo izquierdo (`x.left`).
+   - De lo contrario, `x` se mueve al hijo derecho (`x.der`).
+
+4. **Establecer el Padre del Nuevo Nodo (Línea 9):**
+   - Una vez encontrado el lugar adecuado, `z.p` se establece como `y`.
+
+5. **Insertar el Nodo en la Raíz (Línea 10-11):**
+   - Si `y` es `NULO` (lo que significa que el árbol estaba vacío), `z` se convierte en la nueva raíz del árbol.
+
+6. **Insertar el Nodo como Hijo Izquierdo o Derecho (Líneas 12-15):**
+   - Si `z.clave` es menor que `y.clave`, `z` se inserta como el hijo izquierdo de `y`.
+   - De lo contrario, `z` se inserta como el hijo derecho de `y`.
+
+## Ejemplo
+
+Considera el siguiente BST y la inserción de un nuevo nodo `z` con clave `13`:
+
+![image](https://github.com/CielitoM/Data-Structures/assets/159088152/50c3307c-920a-4270-9ac1-0f80e6340e99)
