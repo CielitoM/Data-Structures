@@ -208,7 +208,7 @@ El número de subárboles vacíos en un árbol binario T=nro.nodos+1.
 
 
 ### Operaciones sobre BSTs
-####Búsqueda. 
+#### Búsqueda. 
 La operación de **búsqueda** en un ABB tiene como objetivo encontrar un nodo con una clave específica \( k \). Dado un puntero a la raíz del árbol, la operación de búsqueda retornará un puntero al nodo que contiene la clave \( k \) si este nodo existe. Si el nodo con la clave \( k \) no se encuentra en el árbol, la operación retornará `NULO`.
 
 ##### Pseudocódigo de la Búsqueda
@@ -393,7 +393,7 @@ SUCESOR(x)
 4. **Retorno del Sucesor (Línea 7):**
    - Una vez que encontramos el nodo `y` que satisface las condiciones, este nodo es el sucesor de `x`. Si no encontramos tal nodo, retornamos `NULO`, lo que indica que `x` tiene la clave mayor en el árbol.
 
-## Ejemplo
+### Ejemplo
 
 Considera el siguiente Árbol Binario de Búsqueda:
 
@@ -468,7 +468,7 @@ INSERTAR(T, z)
    - Si `z.clave` es menor que `y.clave`, `z` se inserta como el hijo izquierdo de `y`.
    - De lo contrario, `z` se inserta como el hijo derecho de `y`.
 
-## Ejemplo
+### Ejemplo
 
 Considera el siguiente BST y la inserción de un nuevo nodo `z` con clave `13`:
 
